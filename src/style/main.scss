@@ -1,0 +1,30 @@
+@import "./header.scss";
+
+@keyframes test {
+  from {
+    top: 10px;
+  }
+
+  to: {
+    top: 100px;
+  }
+}
+
+.nav {
+  background: blue;
+}
+
+.container {
+  background-color: #ddd;
+  .nav {
+    background-color: #5cb85c;
+    margin-bottom: 20px;
+    color: #fff
+  }
+}
+
+
+img.thumbnail {
+  width: 200px;
+  height: 100px;
+}
