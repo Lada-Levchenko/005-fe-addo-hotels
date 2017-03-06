@@ -29,16 +29,12 @@ module.exports = [
 ]
 
 },{}],2:[function(require,module,exports){
-"use strict";
+'use strict';
 
 var data = require('./data');
 
 data.forEach(function (item) {
-  var itemDiv = "<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n      <div class=\"media\">\n        <div class=\"media-left\">\n          <a href=\"#\">\n            <img class=\"media-object thumbnail\" src=\"src/img/" + item.image + "\" alt=\"" + item.image + "\">\n          </a>\n        </div>\n        <div class=\"media-body\">\n          <a href=\"#\" class=\"pull-right text-danger\" aria-label=\"Close\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a>\n          <h4 class=\"media-heading text-primary\">" + item.name + "</h4>\n          <h3 class=\"pull-right\">" + formatPrice(item.price) + "</h3>\n          <br />\n          " + formatStars(item.stars) + "\n          <p class=\"text-muted\">" + item.address + "</p>\n          <input class=\"btn btn-success pull-right\" type=\"submit\" value=\"Select\">\n        </div>\n      </div>\n    </div>\n  </div>";
-  console.log("id", item.id);
-  console.log("stars", item.stars);
-  console.log("price", new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(item.price));
-  console.log("image", item.image);
+  var itemDiv = '<div class="panel panel-default">\n    <div class="panel-body">\n      <div class="media">\n        <div class="media-left">\n          <a href="#">\n            <img class="media-object thumbnail" src="src/img/' + item.image + '" alt="' + item.image + '">\n          </a>\n        </div>\n        <div class="media-body">\n          <a href="#" class="pull-right text-danger" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>\n          <h4 class="media-heading text-primary">' + item.name + '</h4>\n          <h3 class="pull-right">' + formatPrice(item.price) + '</h3>\n          <br />\n          ' + formatStars(item.stars) + '\n          <p class="text-muted">' + item.address + '</p>\n          <input class="btn btn-success pull-right" type="submit" value="Select">\n        </div>\n      </div>\n    </div>\n  </div>';
   document.getElementById("hotelsBlock").innerHTML += itemDiv;
 });
 

@@ -22,10 +22,6 @@ data.forEach((item)=> {
       </div>
     </div>
   </div>`
-  console.log("id", item.id);
-  console.log("stars", item.stars);
-  console.log("price", new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(item.price));
-  console.log("image", item.image);
   document.getElementById("hotelsBlock").innerHTML += itemDiv;
 });
 
