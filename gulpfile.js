@@ -6,7 +6,6 @@ var autoprefix = require('gulp-autoprefixer');
 var miniCss = require('gulp-minify-css');
 var babel = require('gulp-babel');
 var browserify = require('gulp-browserify');
-var react = require('gulp-react');
 
 var path = {
   build: {
@@ -15,7 +14,7 @@ var path = {
   },
   src: {
     style: 'src/style/main.scss',
-    js: 'src/js/appreact.js'
+    js: 'src/js/app.js'
   },
   clean: './build'
 };
@@ -33,7 +32,6 @@ gulp.task('js:build', function() {
   .pipe(babel({
     presets: ["es2015"]
   }))
-  .pipe(react())
   .pipe(browserify())
   .pipe(gulp.dest(path.build.js))
 })
