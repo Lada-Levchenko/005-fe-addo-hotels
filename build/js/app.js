@@ -29,14 +29,32 @@ module.exports = [
 ]
 
 },{}],2:[function(require,module,exports){
-'use strict';
+"use strict";
 
-var data = require('./data');
+var _data = require("./data");
 
-data.forEach(function (item) {
-  var itemDiv = '<div class="panel panel-default">\n    <div class="panel-body">\n      <div class="media">\n        <div class="media-left">\n          <a href="#">\n            <img class="media-object thumbnail" src="src/img/' + item.image + '" alt="' + item.image + '">\n          </a>\n        </div>\n        <div class="media-body">\n          <a href="#" class="pull-right text-danger" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>\n          <h4 class="media-heading text-primary">' + item.name + '</h4>\n          <h3 class="pull-right">' + formatPrice(item.price) + '</h3>\n          <br />\n          ' + formatStars(item.stars) + '\n          <p class="text-muted">' + item.address + '</p>\n          <input class="btn btn-success pull-right" type="submit" value="Select">\n        </div>\n      </div>\n    </div>\n  </div>';
-  document.getElementById("hotelsBlock").innerHTML += itemDiv;
-});
+var _data2 = _interopRequireDefault(_data);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var data = _data2.default.slice(0);
+
+document.getElementById("hotelForm").addEventListener("submit", function () {
+  addHotel(this);this.preventDefault();return false;
+}, false);
+
+function renderHotels() {
+  document.getElementById('hotelsBlock').innerHTML = '';
+  data.forEach(function (item) {
+    var itemDiv = "<div class=\"panel panel-default\">\n      <div class=\"panel-body\">\n        <div class=\"media\">\n          <div class=\"media-left\">\n            <a href=\"#\">\n              <img class=\"media-object thumbnail\" src=\"src/img/" + item.image + "\" alt=\"" + item.image + "\">\n            </a>\n          </div>\n          <div class=\"media-body\">\n            <a href=\"#\" id=\"remove" + item.id + "\" class=\"pull-right text-danger\" aria-label=\"Close\">\n              <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\n            </a>\n            <h4 class=\"media-heading text-primary\">" + item.name + "</h4>\n            <h3 class=\"pull-right\">" + formatPrice(item.price) + "</h3>\n            <br />\n            " + formatStars(item.stars) + "\n            <p class=\"text-muted\">" + item.address + "</p>\n            <input class=\"btn btn-success pull-right\" type=\"submit\" value=\"Select\">\n          </div>\n        </div>\n      </div>\n    </div>";
+    document.getElementById("hotelsBlock").innerHTML += itemDiv;
+  });
+  data.forEach(function (item) {
+    document.getElementById("remove" + item.id).addEventListener("click", function () {
+      removeHotel(item.id);
+    }, false);
+  });
+}
 
 function formatStars(stars) {
   var result = '<span class="text-warning">';
@@ -53,4 +71,27 @@ function formatStars(stars) {
 function formatPrice(price) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(price);
 }
+
+function removeHotel(id) {
+  console.log('remove ' + id);
+  data = data.filter(function (el) {
+    return el.id !== id;
+  });
+  renderHotels();
+}
+
+function addHotel(form) {
+  data.push({
+    id: data.length,
+    name: form.hotelName.value,
+    address: form.address.value,
+    stars: form.stars.value,
+    price: form.price.value,
+    image: 'hotels/amadeus.jpg'
+  });
+  console.log(data);
+  renderHotels();
+}
+
+renderHotels();
 },{"./data":1}]},{},[2])
