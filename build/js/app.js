@@ -39,8 +39,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var data = _data2.default.slice(0);
 
-document.getElementById("hotelForm").addEventListener("submit", function () {
-  addHotel(this);this.preventDefault();return false;
+document.getElementById("hotelSubmit").addEventListener("click", function () {
+  addHotel(document.getElementById("hotelForm"));
 }, false);
 
 function renderHotels() {
@@ -89,7 +89,7 @@ function addHotel(form) {
     price: form.price.value,
     image: 'hotels/amadeus.jpg'
   });
-  console.log(data);
+  form.reset();
   renderHotels();
 }
 

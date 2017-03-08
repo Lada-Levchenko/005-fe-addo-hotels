@@ -2,7 +2,7 @@ import Data from './data';
 
 let data = Data.slice(0);
 
-document.getElementById("hotelForm").addEventListener("submit", function () { addHotel(this); this.preventDefault(); return false; }, false);
+document.getElementById("hotelSubmit").addEventListener("click", function () { addHotel(document.getElementById("hotelForm")); }, false);
 
 function renderHotels(){
   document.getElementById('hotelsBlock').innerHTML = '';
@@ -70,7 +70,7 @@ function addHotel(form){
     price: form.price.value,
     image: 'hotels/amadeus.jpg'
   });
-  console.log(data);
+  form.reset();
   renderHotels();
 }
 
