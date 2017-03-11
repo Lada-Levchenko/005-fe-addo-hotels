@@ -63,7 +63,7 @@ function removeHotel(id){
 
 function addHotel(form){
   data.push({
-    id: data.length,
+    id: data.length + 1,
     name: form.hotelName.value,
     address: form.address.value,
     stars: form.stars.value,
