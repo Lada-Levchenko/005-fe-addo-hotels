@@ -4,9 +4,9 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var autoprefix = require('gulp-autoprefixer');
 var miniCss = require('gulp-minify-css');
-var babel = require('gulp-babel');
-var browserify = require('gulp-browserify');
-var react = require('gulp-react');
+var babelify = require('babelify');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
 
 var path = {
   build: {
@@ -29,13 +29,13 @@ gulp.task('style:build', function () {
 });
 
 gulp.task('js:build', function() {
-  gulp.src(path.src.js)
-  .pipe(babel({
-    presets: ["es2015"]
-  }))
-  .pipe(react())
-  .pipe(browserify())
-  .pipe(gulp.dest(path.build.js))
+  return browserify(path.src.js)
+  .transform('babelify', {
+    presets: ["es2015", "react"]
+  })
+  .bundle()
+  .pipe(source('appreact.js'))
+  .pipe(gulp.dest(path.build.js));
 })
 
 gulp.task('watcher', function () {
