@@ -3,18 +3,33 @@ import ReactDOM from 'react-dom';
 import Star from './components/star';
 import Icon from './components/icon';
 import Form from './components/form';
-import Data from './data';
-
-let data = Data.slice(0);
-
+import HotelStore from './hotel/store';
+import HotelApi from './hotel/api';
 
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      list: data
+      list: HotelStore.getList()
     };
+
+    this.onGetList = this.onGetList.bind(this);
+  }
+
+  onGetList() {
+    this.setState({
+      list: HotelStore.getList()
+    });
+  }
+
+  componentDidMount() {
+    HotelStore.addEventListener('get-list', this.onGetList);
+    HotelApi.getList();
+  }
+
+  componentWillUnmount() {
+    HotelStore.removeEventListener('get-list', this.onGetList);
   }
 
   renderStars(stars) {
@@ -60,17 +75,16 @@ class App extends React.Component {
 
   removeHotel(id){
     console.log('remove ' + id);
-    data = data.filter(function(el) {
+    this.state.list = this.state.list.filter(function(el) {
       return el.id !== id;
     });
-    this.state.list = data;
     renderApp();
   }
 
   addHotel(){
     let form = document.getElementById("hotelForm");
-    data.push({
-      id: data.length + 1,
+    this.state.list.push({
+      id: this.state.list.length + 1,
       name: form.hotelName.value,
       address: form.address.value,
       stars: form.stars.value,
@@ -78,7 +92,6 @@ class App extends React.Component {
       image: 'hotels/amadeus.jpg'
     });
     form.reset();
-    this.state.list = data;
     renderApp();
   }
 
